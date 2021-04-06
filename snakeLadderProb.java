@@ -1,31 +1,55 @@
 class snakeLadderProb{
-	int currentPosition;
-	int numberOccured;
+	int currentPosition,numberOccured,ladder_or_snake,stable;
 	double empCheck;
-	int ladder_or_snake;
 	snakeLadderProb(int x){
 	currentPosition=x;
 	}
 	public int rollDice(){
-		empCheck = Math.floor(Math.random() * (6 - 1 + 1) + 1);
-		numberOccured = (int)empCheck;
-		double get = Math.floor(Math.random() * 10) % 2;
-		ladder_or_snake = (int)get;
-		System.out.println("the ladder_or_snake is "+ladder_or_snake);
-		System.out.println("the currentPosition is "+currentPosition);
-		if (ladder_or_snake == 0){
-			currentPosition = currentPosition+numberOccured;
-		}
-		else if(ladder_or_snake == 1 && currentPosition == 0)
+		while(true)
 		{
-			currentPosition=0;
-		}
-		else if(ladder_or_snake == 1)
-		{
-			currentPosition=currentPosition-numberOccured;
+			empCheck=Math.floor(Math.random()*(6-1+1)+1);
+			numberOccured = (int)empCheck;
+			double get=(int)Math.floor(Math.random()*10)%2;
+			ladder_or_snake=(int)get;
+			System.out.println("the ladder_or_snake is "+ladder_or_snake);
+			System.out.println("the currentPosition is "+currentPosition);
+			if (ladder_or_snake == 0 && currentPosition < 100)
+			{
+				stable=currentPosition;
+				currentPosition = currentPosition + numberOccured;
+				if(currentPosition > 100)
+				{
+					currentPosition=stable;
+				} 
+			}
+			else if(ladder_or_snake == 1 && currentPosition == 0 )
+			{
+				currentPosition=0;
+			}
+			else if(ladder_or_snake == 1 && currentPosition < 0.0)
+			{
+				currentPosition=0;
+			}
+			else if(ladder_or_snake == 1)
+			{
+				currentPosition=currentPosition-numberOccured;
+				if(currentPosition < 0.0)
+				{
+					currentPosition=0;
+				}
+			}
+			if((currentPosition+numberOccured) > 100)
+			{
+				currentPosition=currentPosition;
+			}
+			if(currentPosition == 100)
+			{
+				break;
+			}
 		}
 		return currentPosition;
 	}
+	
 	public static void main (String args[]){
 		snakeLadderProb object = new snakeLadderProb(0);
 		int show=object.rollDice();
