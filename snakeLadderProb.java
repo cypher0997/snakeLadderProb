@@ -1,12 +1,14 @@
 class snakeLadderProb{
-	int currentPosition,numberOccured,ladder_or_snake,stable;
+	int diceRollCount,currentPosition,numberOccured,ladder_or_snake,stable=0;
 	double empCheck;
 	snakeLadderProb(int x){
 	currentPosition=x;
+	diceRollCount=x;
 	}
 	public int rollDice(){
 		while(true)
 		{
+			diceRollCount++;
 			empCheck=Math.floor(Math.random()*(6-1+1)+1);
 			numberOccured = (int)empCheck;
 			double get=(int)Math.floor(Math.random()*10)%2;
@@ -16,11 +18,11 @@ class snakeLadderProb{
 			if (ladder_or_snake == 0 && currentPosition < 100)
 			{
 				stable=currentPosition;
-				currentPosition = currentPosition + numberOccured;
+				currentPosition = currentPosition+numberOccured;
 				if(currentPosition > 100)
 				{
 					currentPosition=stable;
-				} 
+				}
 			}
 			else if(ladder_or_snake == 1 && currentPosition == 0 )
 			{
@@ -38,10 +40,6 @@ class snakeLadderProb{
 					currentPosition=0;
 				}
 			}
-			if((currentPosition+numberOccured) > 100)
-			{
-				currentPosition=currentPosition;
-			}
 			if(currentPosition == 100)
 			{
 				break;
@@ -54,5 +52,6 @@ class snakeLadderProb{
 		snakeLadderProb object = new snakeLadderProb(0);
 		int show=object.rollDice();
 		System.out.println("the updates currentPosition is "+show);
+		System.out.println("the total number of time dice rolled is "+object.diceRollCount);
 	}
 }
